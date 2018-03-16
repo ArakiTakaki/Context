@@ -8,6 +8,10 @@ var context mapping
 
 // Put (key string, value mapping) 対応した構造体を返却する。
 func Put(key string, value interface{}) {
+	if context.instance == nil {
+		context.instance = make(map[string]interface{})
+	}
+
 	context.instance[key] = value
 }
 
@@ -15,11 +19,6 @@ func Put(key string, value interface{}) {
 func Get(key string) (interface{}, bool) {
 	work, swt := context.instance[key]
 	return work, swt
-}
-
-// GetALL 全部の値を返却する
-func GetALL() mapping {
-	return context
 }
 
 // Len マップの長さを返却する
