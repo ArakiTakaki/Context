@@ -1,5 +1,7 @@
 package context
 
+import "errors"
+
 // // Accesser test
 // type Accesser interface {
 // 	New()
@@ -28,9 +30,12 @@ func Put(key string, value interface{}) {
 }
 
 // Get 引数Key返り値mapping存在チェック
-func Get(key string) (interface{}, bool) {
+func Get(key string) (value interface{}, err error) {
 	work, swt := context.instance[key]
-	return work, swt
+	if swt == false {
+		return nil, errors.New("Keyがみつかりません")
+	}
+	return work, nil
 }
 
 // Len マップの長さを返却する
