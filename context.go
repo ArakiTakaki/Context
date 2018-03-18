@@ -1,17 +1,29 @@
 package context
 
+// // Accesser test
+// type Accesser interface {
+// 	New()
+// 	Put(key string, value interface{})
+// 	Get(key string) (interface{}, bool)
+// 	Len() int
+// 	Remove(key string) bool
+// }
+
 type mapping struct {
 	instance map[string]interface{}
 }
 
-var context mapping
+var context = new()
+
+// new 明示的にコンテキストの作成処理を行う
+func new() *mapping {
+	var work = mapping{}
+	work.instance = make(map[string]interface{})
+	return &work
+}
 
 // Put (key string, value mapping) 対応した構造体を返却する。
 func Put(key string, value interface{}) {
-	if context.instance == nil {
-		context.instance = make(map[string]interface{})
-	}
-
 	context.instance[key] = value
 }
 
